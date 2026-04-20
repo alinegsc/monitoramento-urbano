@@ -3,27 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Monitoramento Urbano</title>
-
-    <!-- Importa o CSS -->
     <link rel="stylesheet" href="style.css">
-
-    <!-- Importa ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- Importa biblioteca para ler Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="script.js"></script>
 </head>
-
 <body>
-
-    <!-- 🔵 HEADER AZUL -->
     <header>
-        <h1><i class="fa-solid fa-chart-simple"></i> Monitoramento Urbano</h1>
+        <h1>Monitoramento Urbano</h1>
         <p>Dados do Diário Oficial</p>
     </header>
 
-    <!-- 🔍 FILTROS -->
+    <!-- Filtros -->
     <section class="filtros">
         <select id="filtro-bairro">
             <option value="Todos">Todos</option>
@@ -36,18 +24,17 @@
         <button onclick="aplicarFiltro()">Filtrar</button>
     </section>
 
-    <!-- LINHA -->
     <hr>
 
-    <!-- 📦 CONTAINER DOS CARDS -->
-    <div class="container" id="cards-container">
-        <!-- Os cards serão criados automaticamente pelo script.js -->
-    </div>
+    <!-- Container dos cards -->
+    <div class="container" id="cards-container"></div>
 
-    <!-- RODAPÉ -->
     <footer>
         Projeto acadêmico com base em dados públicos do Diário Oficial.
     </footer>
 
+    <!-- Biblioteca para ler Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
