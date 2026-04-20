@@ -1,40 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Monitoramento Urbano</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Monitoramento Urbano</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Monitoramento Urbano</h1>
-        <p>Dados do Diário Oficial</p>
-    </header>
+  <header>
+    <h1>Monitoramento Urbano</h1>
+    <p>Dados do Diário Oficial</p>
+  </header>
 
-    <!-- Filtros -->
-    <section class="filtros">
-        <select id="filtro-bairro">
-            <option value="Todos">Todos</option>
-        </select>
+  <section class="filtros">
+    <select id="filtro-bairro">
+      <option value="Todos">Todos</option>
+    </select>
 
-        <select id="filtro-problema">
-            <option value="Todas">Todas</option>
-        </select>
+    <select id="filtro-problema">
+      <option value="Todas">Todas</option>
+    </select>
 
-        <button onclick="aplicarFiltro()">Filtrar</button>
-    </section>
+    <button onclick="aplicarFiltro()">Filtrar</button>
+  </section>
 
-    <hr>
+  <hr>
 
-    <!-- Container dos cards -->
-    <div class="container" id="cards-container"></div>
+  <div class="container" id="cards-container"></div>
 
-    <footer>
-        Projeto acadêmico com base em dados públicos do Diário Oficial.
-    </footer>
+  <footer>
+    Projeto acadêmico com base em dados públicos do Diário Oficial.
+  </footer>
 
-    <!-- Biblioteca para ler Excel -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="script.js"></script>
+  <!-- Biblioteca para ler Excel -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
+
