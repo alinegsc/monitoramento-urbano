@@ -9,7 +9,6 @@ header {
   color: white;
   padding: 20px;
   text-align: center;
-  border-bottom: 4px solid #005fa3; /* linha abaixo do cabeçalho */
 }
 
 .filtros {
@@ -41,8 +40,6 @@ header {
 
 .card h3 {
   margin-top: 0;
-  border-bottom: 2px solid #ddd; /* linha logo após o título do bairro */
-  padding-bottom: 5px;
 }
 
 .status {
@@ -71,6 +68,5 @@ footer {
   background: #0077cc;
   color: white;
   text-align: center;
-  padding: 15px;
-  border-top: 4px solid #005fa3; /* linha acima do rodapé */
+  padding: 10px;
 }
