@@ -1,91 +1,80 @@
-let dadosGlobais = []; // guarda todos os dados do Excel
+let dadosGlobais = [];
 
-// Função para carregar o Excel
+// Função para converter número do Excel em data legível
+function excelSerialParaData(serial) {
+    if (!serial || isNaN(serial)) return serial;
+    const base = new Date(1899, 11, 30);
+    const data = new Date(base.getTime() + serial * 24 * 60 * 60 * 1000);
+    return data.toLocaleDateString("pt-BR");
+}
+
+// Carregar Excel
 async function carregarExcel() {
-    const response = await fetch("demandas parelheiros.xlsx");
+    const response = await fetch("demandas.xlsx");
     const arrayBuffer = await response.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const dados = XLSX.utils.sheet_to_json(sheet);
 
-    const primeiraAba = workbook.SheetNames[0];
-    const dados = XLSX.utils.sheet_to_json(workbook.Sheets[primeiraAba]);
-
-    dadosGlobais = dados; // salva para usar nos filtros
-
+    dadosGlobais = dados;
     preencherFiltros(dados);
     mostrarCards(dados);
 }
 
-// Preenche os filtros com opções únicas
+// Preencher filtros
 function preencherFiltros(dados) {
-    const bairros = [...new Set(dados.map(item => item["Bairro/Região"]))];
-    const problemas = [...new Set(dados.map(item => item["Problema"]))];
+    const bairros = [...new Set(dados.map(d => d["Bairro/Região"]))];
+    const problemas = [...new Set(dados.map(d => d["Problema"]))];
 
     const filtroBairro = document.getElementById("filtro-bairro");
     const filtroProblema = document.getElementById("filtro-problema");
 
     bairros.forEach(b => {
-        const opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value = b;
         opt.textContent = b;
         filtroBairro.appendChild(opt);
     });
 
     problemas.forEach(p => {
-        const opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.value = p;
         opt.textContent = p;
         filtroProblema.appendChild(opt);
     });
 }
 
-// Aplica os filtros
+// Aplicar filtro
 function aplicarFiltro() {
-    const bairroSelecionado = document.getElementById("filtro-bairro").value;
-    const problemaSelecionado = document.getElementById("filtro-problema").value;
+    const bairro = document.getElementById("filtro-bairro").value;
+    const problema = document.getElementById("filtro-problema").value;
 
-    let filtrados = dadosGlobais;
-
-    if (bairroSelecionado !== "Todos") {
-        filtrados = filtrados.filter(item => item["Bairro/Região"] === bairroSelecionado);
-    }
-
-    if (problemaSelecionado !== "Todas") {
-        filtrados = filtrados.filter(item => item["Problema"] === problemaSelecionado);
-    }
+    let filtrados = dadosGlobais.filter(d => {
+        return (bairro === "Todos" || d["Bairro/Região"] === bairro) &&
+               (problema === "Todas" || d["Problema"] === problema);
+    });
 
     mostrarCards(filtrados);
 }
 
-// Função para criar os cards
+// Mostrar cards
 function mostrarCards(dados) {
     const container = document.getElementById("cards-container");
     container.innerHTML = "";
 
-    dados.forEach(item => {
-        const card = document.createElement("div");
+    dados.forEach(d => {
+        let card = document.createElement("div");
         card.className = "card";
-
         card.innerHTML = `
-            <p><i class="fa-solid fa-location-dot"></i> Bairro: <strong>${item["Bairro/Região"]}</strong></p>
-            <p><i class="fa-solid fa-triangle-exclamation"></i> Problema: ${item["Problema"]}</p>
-            <p><i class="fa-solid fa-calendar"></i> Data: ${item["Data da demanda"]}</p>
-            <p><i class="fa-solid fa-hourglass-half"></i> ${item["Dias sem solução"] || "N/A"} dias sem solução</p>
-            <span class="status ${corStatus(item["Status"])}">Status: ${item["Status"]}</span>
+            <h3>${d["Bairro/Região"]}</h3>
+            <p><strong>Problema:</strong> ${d["Problema"]}</p>
+            <p><strong>Data:</strong> ${excelSerialParaData(d["Data da demanda"])}</p>
+            <p><strong>Dias sem solução:</strong> ${d["Dias sem solução"]}</p>
+            <p><strong>Status:</strong> ${d["Status"]}</p>
         `;
-
         container.appendChild(card);
     });
 }
 
-// Define cor do status
-function corStatus(status) {
-    if (!status) return "vermelho";
-    status = status.toLowerCase();
-    if (status.includes("pendente")) return "vermelho";
-    if (status.includes("andamento")) return "laranja";
-    if (status.includes("resolvido")) return "verde";
-    return "vermelho";
-}
-
-// Carrega ao abrir
 carregarExcel();
