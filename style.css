@@ -1,17 +1,33 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   margin: 0;
   background: #f4f4f4;
 }
 
+/* Cabeçalho mais bonito */
 header {
-  background: #0077cc;
+  background: linear-gradient(135deg, #0077cc, #005fa3);
   color: white;
-  padding: 20px;
+  padding: 30px 20px;
   text-align: center;
-  border-bottom: 4px solid #005fa3; /* linha abaixo do cabeçalho */
+  border-bottom: 4px solid #004080;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
+header h1 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+header p {
+  margin: 5px 0 0;
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+/* Filtros */
 .filtros {
   margin: 20px;
   text-align: center;
@@ -19,9 +35,25 @@ header {
 
 .filtros select, .filtros button {
   margin: 5px;
-  padding: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
 }
 
+.filtros button {
+  background: #0077cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.filtros button:hover {
+  background: #005fa3;
+}
+
+/* Cards */
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -36,18 +68,26 @@ header {
   margin: 10px;
   padding: 15px;
   width: 280px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card h3 {
   margin-top: 0;
   border-bottom: 2px solid #ddd; /* linha logo após o título do bairro */
   padding-bottom: 5px;
+  font-size: 1.2em;
+  color: #0077cc;
 }
 
+/* Status */
 .status {
   font-weight: bold;
-  padding: 5px;
+  padding: 5px 8px;
   border-radius: 4px;
   display: inline-block;
 }
@@ -67,10 +107,13 @@ header {
   color: #006600;
 }
 
+/* Rodapé mais bonito */
 footer {
-  background: #0077cc;
+  background: linear-gradient(135deg, #0077cc, #005fa3);
   color: white;
   text-align: center;
   padding: 15px;
-  border-top: 4px solid #005fa3; /* linha acima do rodapé */
+  border-top: 4px solid #004080;
+  box-shadow: 0 -4px 6px rgba(0,0,0,0.2);
+  font-size: 0.95em;
 }
