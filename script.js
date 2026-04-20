@@ -8,7 +8,7 @@ function excelSerialParaData(serial) {
   return data.toLocaleDateString("pt-BR");
 }
 
-// Carregar arquivo Excel
+// Carregar Excel
 async function carregarExcel() {
   try {
     const response = await fetch("demandas.xlsx");
@@ -62,20 +62,29 @@ function aplicarFiltro() {
   mostrarCards(filtrados);
 }
 
-// Mostrar cards
+// Mostrar cards com ícones e cores
 function mostrarCards(dados) {
   const container = document.getElementById("cards-container");
   container.innerHTML = "";
 
   dados.forEach(d => {
+    let statusClass = "";
+    let statusIcon = "";
+    if (d["Status"]) {
+      const s = d["Status"].toLowerCase();
+      if (s.includes("pendente")) { statusClass = "pendente"; statusIcon = "🔴"; }
+      else if (s.includes("andamento")) { statusClass = "andamento"; statusIcon = "🟠"; }
+      else if (s.includes("resolvido")) { statusClass = "resolvido"; statusIcon = "🟢"; }
+    }
+
     let card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
-      <h3>${d["Bairro/Região"]}</h3>
-      <p><strong>Problema:</strong> ${d["Problema"]}</p>
-      <p><strong>Data:</strong> ${excelSerialParaData(d["Data da demanda"])}</p>
-      <p><strong>Dias sem solução:</strong> ${d["Dias sem solução"]}</p>
-      <p><strong>Status:</strong> ${d["Status"]}</p>
+      <h3>🏘️ Bairro: ${d["Bairro/Região"]}</h3>
+      <p>⚠️ <strong>Problema:</strong> ${d["Problema"]}</p>
+      <p>📅 <strong>Data:</strong> ${excelSerialParaData(d["Data da demanda"])}</p>
+      <p>⏳ <strong>Dias sem solução:</strong> ${d["Dias sem solução"]}</p>
+      <p>${statusIcon} <strong>Status:</strong> <span class="status ${statusClass}">${d["Status"]}</span></p>
     `;
     container.appendChild(card);
   });
