@@ -12,12 +12,19 @@
   </header>
 
   <section class="filtros">
+    <label for="filtro-bairro">Bairro:</label>
     <select id="filtro-bairro">
       <option value="Todos">Todos</option>
     </select>
 
+    <label for="filtro-problema">Problema:</label>
     <select id="filtro-problema">
       <option value="Todas">Todas</option>
+    </select>
+
+    <label for="filtro-status">Status:</label>
+    <select id="filtro-status">
+      <option value="Todos">Todos</option>
     </select>
 
     <button onclick="aplicarFiltro()">Filtrar</button>
@@ -28,7 +35,7 @@
   <div class="container" id="cards-container"></div>
 
   <footer>
-    Projeto acadêmico com base em dados públicos do Diário Oficial.
+    Projeto acadêmico com base em dados públicos do Diário Oficial - Parelheiros
   </footer>
 
   <!-- Biblioteca para ler Excel -->
