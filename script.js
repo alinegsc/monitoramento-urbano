@@ -30,9 +30,11 @@ async function carregarExcel() {
 function preencherFiltros(dados) {
   const bairros = [...new Set(dados.map(d => d["Bairro/Região"]))];
   const problemas = [...new Set(dados.map(d => d["Problema"]))];
+  const statusList = [...new Set(dados.map(d => d["Status"]))];
 
   const filtroBairro = document.getElementById("filtro-bairro");
   const filtroProblema = document.getElementById("filtro-problema");
+  const filtroStatus = document.getElementById("filtro-status");
 
   bairros.forEach(b => {
     let opt = document.createElement("option");
@@ -47,16 +49,25 @@ function preencherFiltros(dados) {
     opt.textContent = p;
     filtroProblema.appendChild(opt);
   });
+
+  statusList.forEach(s => {
+    let opt = document.createElement("option");
+    opt.value = s;
+    opt.textContent = s;
+    filtroStatus.appendChild(opt);
+  });
 }
 
 // Aplicar filtro
 function aplicarFiltro() {
   const bairro = document.getElementById("filtro-bairro").value;
   const problema = document.getElementById("filtro-problema").value;
+  const status = document.getElementById("filtro-status").value;
 
   let filtrados = dadosGlobais.filter(d => {
     return (bairro === "Todos" || d["Bairro/Região"] === bairro) &&
-           (problema === "Todas" || d["Problema"] === problema);
+           (problema === "Todas" || d["Problema"] === problema) &&
+           (status === "Todos" || d["Status"] === status);
   });
 
   mostrarCards(filtrados);
@@ -91,3 +102,4 @@ function mostrarCards(dados) {
 }
 
 carregarExcel();
+
